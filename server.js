@@ -31,20 +31,21 @@ app.get("/:id", (req, res) => {
     urlCollection = db.get("paramurl"),
     dbUrl;
     
-    if(parseInt(id)){
-       
         urlCollection.find({accessNumber: id}, (err, docs) => {
             if(err) throw(err)
-            dbUrl = docs[0].url;
-            
-            res.redirect(dbUrl);
+            if(docs.length > 0){
+             res.redirect(docs[0].url);
+            }
+            else{
+                 res.json({"error": "This url is not on the database."})
+            }
             db.close()
         })
-    }
    
-        else{
-            res.json({"error": "This url is not on the database."})
-        }
+   
+        
+           
+       
    
 })
 
