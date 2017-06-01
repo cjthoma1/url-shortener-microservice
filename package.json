@@ -6,14 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
-  },"engines": {
-    "node":   "6.10.3",
+  },
+  "engines": {
+    "node": "6.10.3",
     "npm": "3.10.10"
   },
   "author": "Cray J Thomas Jr",
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.3",
+    "mongodb": "^2.2.27",
+    "monk": "^5.0.2",
     "valid-url": "^1.0.9"
   }
 }
