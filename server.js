@@ -28,15 +28,16 @@ app.use("/new/:url", (req, res) => {
 
 app.get("/:id", (req, res) => {
     var id = req.params.id.toString(),
+    urlCollection = db.get("paramurl"),
     dbUrl;
     
     if(parseInt(id)){
-        var urlCollection = db.get("paramurl");
-        urlCollection.find({}, (err, docs) => {
+       
+        urlCollection.find({accessNumber: id}, (err, docs) => {
             if(err) throw(err)
             dbUrl = docs[0].url;
-            res.json(dbUrl);
-            // res.redirect(dbUrl);
+            
+            res.redirect(dbUrl);
             db.close()
         })
     }
