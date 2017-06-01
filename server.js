@@ -8,7 +8,7 @@ paramUrl = '';
 
 app.use(express.static(path.resolve(__dirname, 'client')));
 app.use("/new/:url", (req, res) => {
-    paramUrl = req.params.url +"/"+req.path
+    paramUrl = `${req.params.url} /${req.path}`
    if(validUrl.isUri(paramUrl)) {
      res.redirect(paramUrl);
    }
@@ -19,7 +19,10 @@ app.use("/new/:url", (req, res) => {
 
 app.get("/:id", (req, res) => {
     if(parseInt(req.params.id)){
-        res.send("ID for "+ paramUrl)
+        res.send(`ID for ${paramUrl} is ${req.params.id}` )
+    }
+    else{
+        res.json({"error": "This url is not on the database."})
     }
 })
 
@@ -30,5 +33,5 @@ app.get("/:id", (req, res) => {
 
 
 app.listen(port, () => {
-    console.log("Listening on port "+port);
+    console.log(`Listening on port ${port}`);
 })
