@@ -6,7 +6,7 @@ port = process.env.PORT || '8080',
 mongo = require('mongodb'),
 monk = require('monk'),
 db = monk('localhost:27017/url'),
-
+// db = monk("mongodb://<dbuser>:<dbpassword>@ds161041.mlab.com:61041/url"),
 validUrl = require("valid-url"),
 paramUrl = '';
 
@@ -20,16 +20,17 @@ app.use("/new/:url", (req, res) => {
     paramUrl = `${req.params.url}/${req.path}`
    if(validUrl.isUri(paramUrl)) {
        var accessNumber = Math.floor(Math.random() * (9000 - 1) + 1),
-       docs = {"accessNumber": accessNumber, "url": paramUrl};
+       docs = {"accessNumber": accessNumber.toString(), "url": paramUrl, "currentDate": new Date(Date.now())};
        
        db.get("paramurl").insert(docs)
        
-      
+     
        res.json({"original_url": paramUrl, "short_url": `https://${req.hostname}/${accessNumber}`})
    }
    else{
        res.json({"error":"Wrong url format, make sure you have a valid protocol and real site."})
    }
+    db.close()
 })
 
 app.get("/:id", (req, res) => {
@@ -40,6 +41,7 @@ app.get("/:id", (req, res) => {
             if(err) throw(err)
             if(docs.length > 0){
              res.redirect(docs[0].url);
+            
             }
             else{
                  res.json({"error": "This url is not on the database."})
