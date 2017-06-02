@@ -5,8 +5,8 @@ port = process.env.PORT || '8080',
 
 mongo = require('mongodb'),
 monk = require('monk'),
-db = monk('localhost:27017/url'),
-// db = monk("mongodb://<dbuser>:<dbpassword>@ds161041.mlab.com:61041/url"),
+// db = monk('localhost:27017/url'),
+db = monk(process.env.MONGOLAB_URI),
 validUrl = require("valid-url"),
 paramUrl = '';
 
