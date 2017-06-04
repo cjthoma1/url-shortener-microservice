@@ -11,10 +11,6 @@ validUrl = require("valid-url"),
 paramUrl = '';
 
 app.use(express.static(path.resolve(__dirname, 'client')));
-// app.use((req,res) => {
-//     req.db = db;
-    
-// });
 
 app.use("/new/:url", (req, res) => {
     paramUrl = `${req.params.url}/${req.path}`
@@ -48,12 +44,7 @@ app.get("/:id", (req, res) => {
             }
             db.close()
         })
-   
-   
-        
-           
-       
-   
+
 })
 
 
