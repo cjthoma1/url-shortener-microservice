@@ -21,7 +21,7 @@ app.use("/new/:url", (req, res) => {
        db.get("paramurl").insert(docs)
        
      
-       res.json({"original_url": paramUrl, "short_url": `https://${req.hostname}/${accessNumber}`})
+       res.json({"original_url": paramUrl, "short_url": `${req.protocol}://${req.hostname}/${accessNumber}`})
    }
    else{
        res.json({"error":"Wrong url format, make sure you have a valid protocol and real site."})
